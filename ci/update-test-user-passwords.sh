@@ -6,10 +6,6 @@ set -e
 uaac target "$UAA_API_URL"
 uaac token client get "$UAA_CLIENT_ID" -s "$UAA_CLIENT_SECRET"
 
-export CREDHUB_CA_CERT=$CREDHUB_CA_CERT
-
-credhub api --server "$CREDHUB_SERVER"
-
 TEST_USER_CREDENTIAL_NAMES=$(echo "$TEST_USERS_CREDENTIAL_USERNAME_MAP" | jq '. | keys | join(" ")')
 
 for credential_name in $TEST_USER_CREDENTIAL_NAMES; do
