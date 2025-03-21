@@ -6,8 +6,7 @@ set -e
 uaac target "$UAA_API_URL"
 uaac token client get "$UAA_CLIENT_ID" -s "$UAA_CLIENT_SECRET"
 
-export CREDHUB_CA_CERT='master-bosh.crt'
-echo "$CREDHUB_CA_CERT_VALUE" > $CREDHUB_CA_CERT
+export CREDHUB_CA_CERT=$CREDHUB_CA_CERT
 
 credhub api --server "$CREDHUB_SERVER"
 
