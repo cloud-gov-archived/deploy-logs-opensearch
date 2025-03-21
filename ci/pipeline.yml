@@ -126,6 +126,7 @@ jobs:
     plan:
       - get: deploy-logs-opensearch-config
         params: { depth: 1 }
+      - get: master-bosh-root-cert
       - get: general-task
       - get: weekly
         trigger: true
@@ -134,6 +135,7 @@ jobs:
         config:
           inputs:
             - name: deploy-logs-opensearch-config
+            - name: master-bosh-root-cert
           platform: linux
           run:
             path: deploy-logs-opensearch-config/ci/update-test-user-passwords.sh
@@ -975,6 +977,13 @@ resources:
       repository: playwright-python
       aws_region: us-gov-west-1
       tag: latest
+
+  - name: master-bosh-root-cert
+    type: s3-iam
+    source:
+      bucket: ((production-bucket-name))
+      region_name: ((aws-region))
+      versioned_file: ((master-bosh-cert-file))
 
   - name: weekly
     type: time
